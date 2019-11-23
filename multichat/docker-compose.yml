@@ -2,7 +2,10 @@ version: "2"
 
 services:
   redis:
-    image: redis:latest
+    image: redis:alpine
+    hostname: redis
+    networks: 
+      demo:
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -10,5 +13,8 @@ services:
       - .:/code
     ports:
       - "8000:8000"
-    links:
-      - redis
+    networks: 
+      demo:
+
+networks:
+  demo:
